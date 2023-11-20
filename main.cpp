@@ -6,7 +6,7 @@ int main() {
     //read data
 
     PriorityQueue q;
-    Car ideal_car = q.getPriority();
+    Car ideal_car = q.top();
 
     //print stuff using ideal_car
 
