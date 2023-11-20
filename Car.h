@@ -26,10 +26,11 @@ struct Car {
     string year;
     int horsepower;
     int torque;
+    int priority;
 
     string determineSize(int height, int length, int width) {
         //gets the size for the size variable in the car class
-        //will be implemented later
+        //to be implemented
     }
 };
 
@@ -37,8 +38,13 @@ class PriorityQueue {
 public:
     vector<Car> priority_vect;
 
-    Car getPriority() {
+    Car top() {
         //returns the car with the highest priority(the ideal car)
-        //will be implemented later
+        //to be implemented
+    }
+
+    void updatePriority(Car& c) {
+        //updates the priority variable in car class
+        //to be implemented
     }
 };
