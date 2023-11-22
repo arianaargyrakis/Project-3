@@ -56,14 +56,14 @@ public:
         max.car_attributes.at(16) = "-1";
 
         for(int i = 0; i < priority_vect.size(); i++) {
-            if(priority_vect.at(i).car_attributes.at(16) > max.car_attributes.at(16)) {
+            if(stoi(priority_vect.at(i).car_attributes.at(16)) > stoi(max.car_attributes.at(16))) {
                 max = priority_vect.at(i);
             }
         }
         return max;
     }
 
-    void push_back(Car& c) {
+    void push(Car& c) {
         priority_vect.push_back(c);
     }
 
