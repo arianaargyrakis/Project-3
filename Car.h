@@ -10,41 +10,72 @@ using namespace std;
 
 struct Car {
     //not sure if we'll use classification, make, model_year, or year, but I put them for now
-    string size;
-    string driveline;
-    string engine_type;
-    bool hybrid;
-    int num_of_forward_gears;
-    string transmission;
-    int city_mpg;
-    string fuel_type;
-    int highway_mpg;
-    string classification;
-    string ID;
-    string make;
-    string model_year;
-    string year;
-    int horsepower;
-    int torque;
-    int priority;
+//    0 string size;
+//    1 string driveline;
+//    2 string engine_type;
+//    3 string hybrid; (bool)
+//    4 string num_of_forward_gears; (int)
+//    5 string transmission;
+//    6 string city_mpg; (int)
+//    7 string fuel_type;
+//    8 string highway_mpg; (int)
+//    9 string classification;
+//    10 string ID;
+//    11 string make;
+//    12 string model_year;
+//    13 string year;
+//    14 string horsepower; (int)
+//    15 string torque; (int)
+//    16 string priority; (int)
+    vector<string> car_attributes; //push back the above attributes into the vector in this exact order (if necessary type conversions happen elsewhere)
 
-    string determineSize(int height, int length, int width) {
+    void determineSize(int height, int length, int width) {
         //gets the size for the size variable in the car class
-        //to be implemented
+        int dimensions = height * length * width;
+
+        if(dimensions < 1000000) {
+            this->car_attributes.emplace_back("small");
+        }
+        else if(dimensions > 7500000) {
+            this->car_attributes.emplace_back("large");
+        }
+        else {
+            this->car_attributes.emplace_back("medium");
+        }
+
     }
 };
 
 class PriorityQueue {
 public:
-    vector<Car> priority_vect;
+    vector<Car> priority_vect; //vector of Cars, basically a vector of vectors
 
     Car top() {
         //returns the car with the highest priority(the ideal car)
-        //to be implemented
+        Car max;
+        max.car_attributes.at(16) = "-1";
+
+        for(int i = 0; i < priority_vect.size(); i++) {
+            if(priority_vect.at(i).car_attributes.at(16) > max.car_attributes.at(16)) {
+                max = priority_vect.at(i);
+            }
+        }
+        return max;
     }
 
-    void updatePriority(Car& c) {
+    void push_back(Car& c) {
+        priority_vect.push_back(c);
+    }
+
+    void updatePriority(string input, int index) {
         //updates the priority variable in car class
-        //to be implemented
+        //input is what the user inputs, index is the index for the specific variable being checked in car_attributes
+        for(int i = 0; i < priority_vect.size(); i++) {
+            if(priority_vect.at(i).car_attributes.at(index) == input) {
+                int p = stoi(priority_vect.at(i).car_attributes.at(16));
+                p += 1;
+                priority_vect.at(i).car_attributes.at(16) = to_string(p);
+            }
+        }
     }
 };
