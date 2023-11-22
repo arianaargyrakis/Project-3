@@ -6,7 +6,7 @@ int main() {
     PriorityQueue q;
     //read data
         // use car.determineSize(height, length, width); to get size
-        // use q.push_back(car); after reading all info for one car
+        // use q.push(car); after reading all info for one car
 
     //get user's input
         //use q.updatePriority(input, 0); after each question/input (update index by +1 for each input)
