@@ -52,10 +52,9 @@ public:
 
     Car top() {
         //returns the car with the highest priority(the ideal car)
-        Car max;
-        max.car_attributes.at(16) = "-1";
+        Car max = priority_vect.at(0);
 
-        for(int i = 0; i < priority_vect.size(); i++) {
+        for(int i = 1; i < priority_vect.size(); i++) {
             if(stoi(priority_vect.at(i).car_attributes.at(16)) > stoi(max.car_attributes.at(16))) {
                 max = priority_vect.at(i);
             }
