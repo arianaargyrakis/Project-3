@@ -16,14 +16,14 @@
 using namespace std;
 
 class hashTable{
-    Car arr[100];
+    list<Car> *hash;
 public:
     void insert(Car c, int priority){
-        arr[priority] = c;
+            hash[priority].push_back(c);
     }
 
     Car search(int priority){
-        return arr[priority];
+        return hash[priority].front();
     }
 
 };
