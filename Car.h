@@ -26,7 +26,9 @@ struct Car {
 //    13 string year;
 //    14 string horsepower; (int)
 //    15 string torque; (int)
-//    16 string priority; (int)
+//    16 string volume; (int)
+//    17 string rpm; (int)
+//    18 string priority; (int)
     vector<string> car_attributes; //push back the above attributes into the vector in this exact order (if necessary type conversions happen elsewhere)
 
     void determineSize(int height, int length, int width) {
@@ -55,7 +57,7 @@ public:
         Car max = priority_vect.at(0);
 
         for(int i = 1; i < priority_vect.size(); i++) {
-            if(stoi(priority_vect.at(i).car_attributes.at(16)) > stoi(max.car_attributes.at(16))) {
+            if(stoi(priority_vect.at(i).car_attributes.at(18)) > stoi(max.car_attributes.at(18))) {
                 max = priority_vect.at(i);
             }
         }
@@ -70,10 +72,11 @@ public:
         //updates the priority variable in car class
         //input is what the user inputs, index is the index for the specific variable being checked in car_attributes
         for(int i = 0; i < priority_vect.size(); i++) {
-            if(priority_vect.at(i).car_attributes.at(index) == input) {
-                int p = stoi(priority_vect.at(i).car_attributes.at(16));
+            size_t found = priority_vect.at(i).car_attributes.at(index).find(input);
+            if(found != string::npos) {
+                int p = stoi(priority_vect.at(i).car_attributes.at(18));
                 p += 1;
-                priority_vect.at(i).car_attributes.at(16) = to_string(p);
+                priority_vect.at(i).car_attributes.at(18) = to_string(p);
             }
         }
     }
