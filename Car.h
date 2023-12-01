@@ -56,7 +56,7 @@ public:
         Car max = priority_vect.at(0);
 
         for(int i = 1; i < priority_vect.size(); i++) {
-            if(stoi(priority_vect.at(i).car_attributes.at(16)) > stoi(max.car_attributes.at(16))) {
+            if(stoi(priority_vect.at(i).car_attributes.at(17)) > stoi(max.car_attributes.at(17))) {
                 max = priority_vect.at(i);
             }
         }
