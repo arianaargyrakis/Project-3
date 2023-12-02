@@ -27,7 +27,7 @@ struct Car {
 //    14 string horsepower; (int)
 //    15 string torque; (int)
 //    16 string volume; (int)
-//    17 string rpm; (int)
+//    17 string rpm; (float)
 //    18 string priority; (int)
     vector<string> car_attributes; //push back the above attributes into the vector in this exact order (if necessary type conversions happen elsewhere)
 
