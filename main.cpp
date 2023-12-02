@@ -7,11 +7,14 @@
 
 int main() {
     PriorityQueue q;
+    clock_t timeQ; //clock for priority queue
+    float totalTimeQ; //total time to do all priority queue related functions
     //read data
     ifstream csvFile;
     csvFile.open("cars.csv");
     string line = "";
     int firstLine = 1;
+    timeQ = clock();
     while (getline(csvFile, line))
     {
         if (firstLine == 1)
@@ -105,12 +108,13 @@ int main() {
             newCar.car_attributes.push_back(size);
             getline(inputString, rpm, ',');
             newCar.car_attributes.push_back(rpm);
-            newCar.car_attributes.push_back("0");
             q.push(newCar);
         }
         line = "";
     }
 
+    timeQ = clock() - timeQ;
+    totalTimeQ = (float)timeQ/CLOCKS_PER_SEC;
 
     //get user's input
     //use q.updatePriority(input, 0); after each question/input (update index by +1 for each input)
@@ -215,12 +219,18 @@ int main() {
     }
 
     //preference order: fuel type, city MPG, highway MPG, transmission type, horsepower, torque, drivetrain, size
+    timeQ = clock();
     for(int i = 0; i < idealCar.size(); i++)
     {
         q.updatePriority(idealCar[i].first, idealCar[i].second);
     }
+    timeQ = clock() - timeQ;
+    totalTimeQ += (float)timeQ/CLOCKS_PER_SEC;
 
+    timeQ = clock();
     Car priorityCar = q.top();
+    timeQ = clock() - timeQ;
+    totalTimeQ += (float)timeQ/CLOCKS_PER_SEC;
     //print stuff using priorityCar
     cout << "Car: " << priorityCar.car_attributes[10] << endl;
     cout << "Size: " << priorityCar.car_attributes[0] << endl;
@@ -243,7 +253,7 @@ int main() {
     cout << "HorsePower: " << priorityCar.car_attributes[14] << endl;
     cout << "Torque: " << priorityCar.car_attributes[15] << endl;
     cout << "RPM: " << priorityCar.car_attributes[17] << endl;
-    cout << "Time using Priority Queue: " /*<< need to implement Clock*/ << endl;
+    cout << "Time using Priority Queue: " << totalTimeQ << " seconds" <<endl;
 
     return 0;
 }
