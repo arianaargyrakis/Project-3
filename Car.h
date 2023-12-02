@@ -10,26 +10,26 @@ using namespace std;
 
 struct Car {
     //not sure if we'll use classification, make, model_year, or year, but I put them for now
-//    0 string size;
-//    1 string driveline;
-//    2 string engine_type;
-//    3 string hybrid; (bool)
-//    4 string num_of_forward_gears; (int)
-//    5 string transmission;
-//    6 string city_mpg; (int)
-//    7 string fuel_type;
-//    8 string highway_mpg; (int)
-//    9 string classification;
-//    10 string ID;
-//    11 string make;
-//    12 string model_year;
-//    13 string year;
-//    14 string horsepower; (int)
-//    15 string torque; (int)
-//    16 string volume; (int)
-//    17 string rpm; (float)
-//    18 string priority; (int)
-    vector<string> car_attributes; //push back the above attributes into the vector in this exact order (if necessary type conversions happen elsewhere)
+//    0 string size
+//    1 string driveline
+//    2 string engine_type
+//    3 string hybrid (bool)
+//    4 string num_of_forward_gears (int)
+//    5 string transmission
+//    6 string city_mpg (int)
+//    7 string fuel_type
+//    8 string highway_mpg (int)
+//    9 string classification
+//    10 string ID
+//    11 string make
+//    12 string model_year
+//    13 string year
+//    14 string horsepower (int)
+//    15 string torque (int)
+//    16 string volume (int)
+//    17 string rpm (float)
+    vector<string> car_attributes; //vector of the above attributes in that exact order
+    int priority;
 
     void determineSize(int height, int length, int width) {
         //gets the size for the size variable in the car class
@@ -57,7 +57,7 @@ public:
         Car max = priority_vect.at(0);
 
         for(int i = 1; i < priority_vect.size(); i++) {
-            if(stoi(priority_vect.at(i).car_attributes.at(18)) > stoi(max.car_attributes.at(18))) {
+            if(priority_vect.at(i).priority > max.priority) {
                 max = priority_vect.at(i);
             }
         }
@@ -74,9 +74,7 @@ public:
         for(int i = 0; i < priority_vect.size(); i++) {
             size_t found = priority_vect.at(i).car_attributes.at(index).find(input);
             if(found != string::npos) {
-                int p = stoi(priority_vect.at(i).car_attributes.at(18));
-                p += 1;
-                priority_vect.at(i).car_attributes.at(18) = to_string(p);
+                priority_vect.at(i).priority++;
             }
         }
     }
