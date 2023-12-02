@@ -108,7 +108,6 @@ int main() {
             newCar.car_attributes.push_back("0");
             q.push(newCar);
         }
-
         line = "";
     }
 
