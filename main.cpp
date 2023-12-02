@@ -7,6 +7,7 @@ int main() {
     //for loop
         Car car; //use to make car objects for each car in the data
         //read data for one car
+            //use car.car_attributes.push_back(string);
         // use car.determineSize(height, length, width); to get size
         // use q.push(car); after reading all info for one car
 
