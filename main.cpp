@@ -161,7 +161,6 @@ int main() {
     {
         idealCar.push_back(cityMPG);
         idealCar.push_back(highwayMPG);
-
         if (transmissionType == "1")
         {
             idealCar.push_back("automatic");
