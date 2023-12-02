@@ -6,12 +6,8 @@
 #include "Car.h"
 
 int main() {
-
-    Car car; //use to make car objects for each car in the data
     PriorityQueue q;
     //read data
-    // use car.determineSize(height, length, width); to get size
-    // use q.push(car); after reading all info for one car
     ifstream csvFile;
     csvFile.open("cars.csv");
     string line = "";
@@ -49,11 +45,9 @@ int main() {
             stringstream inputString(line);
 
             getline(inputString, height, ',');
-            newCar.car_attributes.push_back(height);
             getline(inputString, length, ',');
-            newCar.car_attributes.push_back(length);
             getline(inputString, width, ',');
-            newCar.car_attributes.push_back(height);
+            newCar.determineSize(stoi(height), stoi(length), stoi(width));
             getline(inputString, driveline, ',');
             newCar.car_attributes.push_back(driveline);
             getline(inputString, engineType, ',');
@@ -88,6 +82,7 @@ int main() {
             newCar.car_attributes.push_back(size);
             getline(inputString, rpm, ',');
             newCar.car_attributes.push_back(rpm);
+            newCar.car_attributes.push_back("0");
             q.push(newCar);
         }
 
@@ -96,7 +91,7 @@ int main() {
 
 
     //get user's input
-        //use q.updatePriority(input, 0); after each question/input (update index by +1 for each input)
+    //use q.updatePriority(input, 0); after each question/input (update index by +1 for each input)
     string gasPowered;
     string cityMPG;
     string highwayMPG;
@@ -198,10 +193,33 @@ int main() {
     }
 
     //preference order: fuel type, city MPG, highway MPG, transmission type, horsepower, torque, drivetrain, size
+    
+    //still need to implement updatePriority
 
-
-    //Car ideal_car = q.top();
-    //print stuff using ideal_car
+    Car priorityCar = q.top();
+    //print stuff using priorityCar
+    cout << "Car: " << priorityCar.car_attributes[10] << endl;
+    cout << "Size: " << priorityCar.car_attributes[0] << endl;
+    cout << "Volume: " << priorityCar.car_attributes[16] << endl;
+    cout << "Driveline: " << priorityCar.car_attributes[1] << endl;
+    cout << "Engine Type: " << priorityCar.car_attributes[2] << endl;
+    if(priorityCar.car_attributes[3] == "TRUE")
+    {
+        cout << "Has Hybrid Engine: " << "Yes" << endl;
+    }
+    else
+    {
+        cout << "Has Hybrid Engine: " << "No" << endl;
+    }
+    cout << "Number of Forward Gears: " << priorityCar.car_attributes[4] << endl;
+    cout << "Transmission: " << priorityCar.car_attributes[9] << endl;
+    cout << "City mpg: " << priorityCar.car_attributes[6] << endl;
+    cout << "Fuel Type: " << priorityCar.car_attributes[7] << endl;
+    cout << "Highway mpg: " << priorityCar.car_attributes[8] << endl;
+    cout << "HorsePower: " << priorityCar.car_attributes[14] << endl;
+    cout << "Torque: " << priorityCar.car_attributes[15] << endl;
+    cout << "RPM: " << priorityCar.car_attributes[17] << endl;
+    cout << "Time using Priority Queue: " /*<< need to implement Clock*/ << endl;
 
     return 0;
 }
