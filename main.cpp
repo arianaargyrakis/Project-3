@@ -2,7 +2,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-
+#include <ctime>
 #include "Car.h"
 
 int main() {
@@ -108,7 +108,7 @@ int main() {
     cout << "Small Size (1) / Medium Size (2) / Large Size (3)" << endl;
     cin >> size;
     cout << endl;
-    if (gasPowered == "1")
+    if (gasPowered != "3")
     {
         cout << "Automatic Transmission (1) / Manual Transmission (2):" << endl;
         cin >> transmissionType;
@@ -130,71 +130,73 @@ int main() {
     cin >> driveTrain;
     cout << endl;
 
-    vector<string> idealCar;
+    vector<pair<string, int>> idealCar;
 
     if (gasPowered == "1")
     {
-        idealCar.push_back("gas");
+        idealCar.push_back({"Gasoline", 7});
     }
     else if (gasPowered == "2")
     {
-        idealCar.push_back("diesel");
+        idealCar.push_back({"Diesel fuel", 7});
     }
     else if (gasPowered == "3")
     {
-        idealCar.push_back("electric");
+        idealCar.push_back({"Electricity", 7});
     }
-    else if (gasPowered == "natural gas")
+    else if (gasPowered == "4")
     {
-        idealCar.push_back("Diesel");
+        idealCar.push_back({"Compressed natural gas", 7});
     }
     else
     {
-        idealCar.push_back("E85");
+        idealCar.push_back({"E85", 7});
     }
     if (gasPowered != "3")
     {
-        idealCar.push_back(cityMPG);
-        idealCar.push_back(highwayMPG);
+        idealCar.push_back({cityMPG, 6});
+        idealCar.push_back({highwayMPG, 8});
         if (transmissionType == "1")
         {
-            idealCar.push_back("automatic");
+            idealCar.push_back({"Automatic transmission", 9});
         }
         else
         {
-            idealCar.push_back("manual");
+            idealCar.push_back({"Manual transmission", 9});
         }
     }
-    idealCar.push_back(horsepower);
-    idealCar.push_back(torque);
+    idealCar.push_back({horsepower, 14});
+    idealCar.push_back({torque, 15});
     if (driveTrain == "1")
     {
-        idealCar.push_back("rwd");
+        idealCar.push_back({"Rear-wheel drive", 1});
     }
     else if (driveTrain == "2")
     {
-        idealCar.push_back("awd");
+        idealCar.push_back({"All-wheel drive", 1});
     }
     else
     {
-        idealCar.push_back("fwd");
+        idealCar.push_back({"Front-wheel drive", 1});
     }
     if (size == "1")
     {
-        idealCar.push_back("small");
+        idealCar.push_back({"small", 0});
     }
     else if (size == "2")
     {
-        idealCar.push_back("medium");
+        idealCar.push_back({"medium", 0});
     }
     else
     {
-        idealCar.push_back("large");
+        idealCar.push_back({"large", 0});
     }
 
     //preference order: fuel type, city MPG, highway MPG, transmission type, horsepower, torque, drivetrain, size
-    
-    //still need to implement updatePriority
+    for(int i = 0; i < idealCar.size(); i++)
+    {
+        q.updatePriority(idealCar[i].first, idealCar[i].second);
+    }
 
     Car priorityCar = q.top();
     //print stuff using priorityCar
