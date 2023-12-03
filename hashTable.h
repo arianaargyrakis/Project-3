@@ -56,6 +56,7 @@ public:
                 return v;
             }
         }
+        return search(priority-1);
     }
 
 };
