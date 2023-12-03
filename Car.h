@@ -29,7 +29,7 @@ struct Car {
 //    16 string volume (int)
 //    17 string rpm (float)
     vector<string> car_attributes; //vector of the above attributes in that exact order
-    int priority;
+    int priority = 0;
 
     void determineSize(int height, int length, int width) {
         //gets the size for the size variable in the car class
