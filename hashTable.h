@@ -28,7 +28,7 @@ public:
         vector<list<Car>> newHashT(newCapacity);
         for (auto v : hashT){
             for (auto w : v){
-                int newIndex = hashFunction(w.getPriority());
+                int newIndex = hashFunction(w.priority);
                 newHashT[newIndex].push_back(w);
             }
         }
@@ -47,15 +47,15 @@ public:
         hashT[index].push_back(c);
     }
 
-    string search(int priority){
+    Car search(int priority){
         int index = hashFunction(priority);
         list<Car> bucket = hashT[index];
 
         for(auto v : bucket){
-            if (v.getPriority() == priority){
-                return v.getMake();
+            if (v.priority == priority){
+                return v;
             }
         }
-        return "null";
     }
+
 };
