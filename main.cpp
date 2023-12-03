@@ -4,17 +4,22 @@
 #include <sstream>
 #include <ctime>
 #include "Car.h"
+#include "hashTable.h"
 
 int main() {
     PriorityQueue q;
+    hashTable h;
     clock_t timeQ; //clock for priority queue (code to use clock_t from https://www.programiz.com/cpp-programming/library-function/ctime/clock)
+    clock_t timeH;
     float totalTimeQ; //total time to do all priority queue related functions
+    float totalTimeH;
     //read data
     ifstream csvFile;
     csvFile.open("cars.csv");
     string line = "";
     int firstLine = 1;
     timeQ = clock();
+    timeH = clock();
     while (getline(csvFile, line))
     {
         if (firstLine == 1)
@@ -114,7 +119,9 @@ int main() {
     }
 
     timeQ = clock() - timeQ;
+    timeH = clock() - timeH;
     totalTimeQ = (float)timeQ/CLOCKS_PER_SEC;
+    totalTimeH = (float)timeH/CLOCKS_PER_SEC;
 
     //get user's input
     //use q.updatePriority(input, 0); after each question/input (update index by +1 for each input)
@@ -232,6 +239,7 @@ int main() {
     timeQ = clock() - timeQ;
     totalTimeQ += (float)timeQ/CLOCKS_PER_SEC;
     //print stuff using priorityCar
+    cout << "----------------Priority Queue----------------" << endl;
     cout << "Car: " << priorityCar.car_attributes[10] << endl;
     cout << "Size: " << priorityCar.car_attributes[0] << endl;
     cout << "Volume: " << priorityCar.car_attributes[16] << endl;
@@ -253,7 +261,45 @@ int main() {
     cout << "HorsePower: " << priorityCar.car_attributes[14] << endl;
     cout << "Torque: " << priorityCar.car_attributes[15] << endl;
     cout << "RPM: " << priorityCar.car_attributes[17] << endl;
-    cout << "Time using Priority Queue: " << totalTimeQ << " seconds" <<endl;
+    cout << "Time using Priority Queue: " << totalTimeQ << " seconds" <<endl << endl;
+
+    cout << "----------------Hash Table----------------" << endl;
+
+    timeH = clock();
+    for (int i = 0; i < q.priority_vect.size(); ++i) {
+        h.insert(q.priority_vect.at(i), q.priority_vect.at(i).priority);
+    }
+    timeH = clock() - timeH;
+    totalTimeH += (float)timeH/CLOCKS_PER_SEC;
+
+    timeH = clock();
+    Car hashCar = h.search(8);
+    timeH = clock() - timeH;
+    totalTimeH += (float)timeH/CLOCKS_PER_SEC;
+
+    cout << "Car: " << hashCar.car_attributes[10] << endl;
+    cout << "Size: " << hashCar.car_attributes[0] << endl;
+    cout << "Volume: " << hashCar.car_attributes[16] << endl;
+    cout << "Driveline: " << hashCar.car_attributes[1] << endl;
+    cout << "Engine Type: " << hashCar.car_attributes[2] << endl;
+    if(hashCar.car_attributes[3] == "TRUE")
+    {
+        cout << "Has Hybrid Engine: " << "Yes" << endl;
+    }
+    else
+    {
+        cout << "Has Hybrid Engine: " << "No" << endl;
+    }
+    cout << "Number of Forward Gears: " << hashCar.car_attributes[4] << endl;
+    cout << "Transmission: " << hashCar.car_attributes[9] << endl;
+    cout << "City mpg: " << hashCar.car_attributes[6] << endl;
+    cout << "Fuel Type: " << hashCar.car_attributes[7] << endl;
+    cout << "Highway mpg: " << hashCar.car_attributes[8] << endl;
+    cout << "HorsePower: " << hashCar.car_attributes[14] << endl;
+    cout << "Torque: " << hashCar.car_attributes[15] << endl;
+    cout << "RPM: " << hashCar.car_attributes[17] << endl;
+    cout << "Time using Hash Table: " << totalTimeH << " seconds" << endl;
+
 
     return 0;
 }
