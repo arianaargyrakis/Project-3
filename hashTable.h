@@ -1,7 +1,3 @@
-//
-// Created by andre on 11/22/2023.
-//
-
 #ifndef HASHTABLE_HASHTABLE_H
 #define HASHTABLE_HASHTABLE_H
 
@@ -10,20 +6,56 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <forward_list>
 #include <list>
 #include "Car.h"
 using namespace std;
 
 class hashTable{
-    list<Car> *hash;
+    vector<list<Car>> hashT;
+    int capacity = 5;
+    int size = 0;
+    double maxLoadFactor = 0.5;
 public:
+    hashTable(){
+        hashT.resize(capacity);
+    }
+
+    int hashFunction(int priority){
+        return priority % capacity;
+    }
+
+    void resizeAndRehash(int newCapacity){
+        vector<list<Car>> newHashT(newCapacity);
+        for (auto v : hashT){
+            for (auto w : v){
+                int newIndex = hashFunction(w.getPriority());
+                newHashT[newIndex].push_back(w);
+            }
+        }
+        hashT = newHashT;
+        capacity = newCapacity;
+    }
+
     void insert(Car c, int priority){
-            hash[priority].push_back(c);
+        if ((double(size) / capacity) >= maxLoadFactor){
+            resizeAndRehash(capacity * 2);
+        }
+        int index = hashFunction(priority);
+        if (hashT[index].empty()){
+            size++;
+        }
+        hashT[index].push_back(c);
     }
 
-    Car search(int priority){
-        return hash[priority].front();
-    }
+    string search(int priority){
+        int index = hashFunction(priority);
+        list<Car> bucket = hashT[index];
 
+        for(auto v : bucket){
+            if (v.getPriority() == priority){
+                return v.getMake();
+            }
+        }
+        return "null";
+    }
 };
