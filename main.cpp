@@ -7,7 +7,7 @@
 
 int main() {
     PriorityQueue q;
-    clock_t timeQ; //clock for priority queue
+    clock_t timeQ; //clock for priority queue (code to use clock_t from https://www.programiz.com/cpp-programming/library-function/ctime/clock)
     float totalTimeQ; //total time to do all priority queue related functions
     //read data
     ifstream csvFile;
