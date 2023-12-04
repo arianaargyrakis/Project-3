@@ -13,6 +13,7 @@ int main() {
     clock_t timeH;
     float totalTimeQ; //total time to do all priority queue related functions
     float totalTimeH;
+
     //read data
     ifstream csvFile;
     csvFile.open("cars.csv");
