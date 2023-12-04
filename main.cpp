@@ -4,113 +4,95 @@
 #include <sstream>
 #include <ctime>
 #include "Car.h"
+#include "hashTable.h"
 
 int main() {
     PriorityQueue q;
+    hashTable h;
+    clock_t timeQ; //clock for priority queue (code to use clock_t from https://www.programiz.com/cpp-programming/library-function/ctime/clock)
+    clock_t timeH;
+    float totalTimeQ; //total time to do all priority queue related functions
+    float totalTimeH;
     //read data
     ifstream csvFile;
     csvFile.open("cars.csv");
     string line = "";
     int firstLine = 1;
+    timeQ = clock();
+    timeH = clock();
     while (getline(csvFile, line))
     {
-        if (firstLine == 1)
-        {
-            firstLine++;
-            string temp;
-            stringstream inputString(line);
-            getline(inputString, temp, ','); // this is to not read column headers
-            getline(inputString, temp, ',');
-            getline(inputString, temp, ',');
-            getline(inputString, temp, ',');
-            getline(inputString, temp, ',');
-            getline(inputString, temp, ',');
-            getline(inputString, temp, ',');
-            getline(inputString, temp, ',');
-            getline(inputString, temp, ',');
-            getline(inputString, temp, ',');
-            getline(inputString, temp, ',');
-            getline(inputString, temp, ',');
-            getline(inputString, temp, ',');
-            getline(inputString, temp, ',');
-            getline(inputString, temp, ',');
-            getline(inputString, temp, ',');
-            getline(inputString, temp, ',');
-            getline(inputString, temp, ',');
-            getline(inputString, temp, ',');
-            getline(inputString, temp, ',');
+        Car newCar;
+        string height;
+        string length;
+        string width;
+        string driveline;
+        string engineType;
+        string hybrid;
+        string numGears;
+        string transmissionName;
+        string MPGcity;
+        string fuel;
+        string MPGhighway;
+        string transmissionType;
+        string ID;
+        string make;
+        string modelYear;
+        string year;
+        string horsepower;
+        string torque;
+        string size;
+        string rpm;
 
-        }
-        else
-        {
-            Car newCar;
-            string height;
-            string length;
-            string width;
-            string driveline;
-            string engineType;
-            string hybrid;
-            string numGears;
-            string transmissionName;
-            string MPGcity;
-            string fuel;
-            string MPGhighway;
-            string transmissionType;
-            string ID;
-            string make;
-            string modelYear;
-            string year;
-            string horsepower;
-            string torque;
-            string size;
-            string rpm;
+        stringstream inputString(line);
 
-            stringstream inputString(line);
+        getline(inputString, height, ',');
+        getline(inputString, length, ',');
+        getline(inputString, width, ',');
+        newCar.determineSize(stoi(height), stoi(length), stoi(width));
+        getline(inputString, driveline, ',');
+        newCar.car_attributes.push_back(driveline);
+        getline(inputString, engineType, ',');
+        newCar.car_attributes.push_back(engineType);
+        getline(inputString, hybrid, ',');
+        newCar.car_attributes.push_back(hybrid);
+        getline(inputString, numGears, ',');
+        newCar.car_attributes.push_back(numGears);
+        getline(inputString, transmissionName, ',');
+        newCar.car_attributes.push_back(transmissionName);
+        getline(inputString, MPGcity, ',');
+        newCar.car_attributes.push_back(MPGcity);
+        getline(inputString, fuel, ',');
+        newCar.car_attributes.push_back(fuel);
+        getline(inputString, MPGhighway, ',');
+        newCar.car_attributes.push_back(MPGhighway);
+        getline(inputString, transmissionType, ',');
+        newCar.car_attributes.push_back(transmissionType);
+        getline(inputString, ID, ',');
+        newCar.car_attributes.push_back(ID);
+        getline(inputString, make, ',');
+        newCar.car_attributes.push_back(make);
+        getline(inputString, modelYear, ',');
+        newCar.car_attributes.push_back(modelYear);
+        getline(inputString, year, ',');
+        newCar.car_attributes.push_back(year);
+        getline(inputString, horsepower, ',');
+        newCar.car_attributes.push_back(horsepower);
+        getline(inputString, torque, ',');
+        newCar.car_attributes.push_back(torque);
+        getline(inputString, size, ',');
+        newCar.car_attributes.push_back(size);
+        getline(inputString, rpm, ',');
+        newCar.car_attributes.push_back(rpm);
+        q.push(newCar);
 
-            getline(inputString, height, ',');
-            getline(inputString, length, ',');
-            getline(inputString, width, ',');
-            newCar.determineSize(stoi(height), stoi(length), stoi(width));
-            getline(inputString, driveline, ',');
-            newCar.car_attributes.push_back(driveline);
-            getline(inputString, engineType, ',');
-            newCar.car_attributes.push_back(engineType);
-            getline(inputString, hybrid, ',');
-            newCar.car_attributes.push_back(hybrid);
-            getline(inputString, numGears, ',');
-            newCar.car_attributes.push_back(numGears);
-            getline(inputString, transmissionName, ',');
-            newCar.car_attributes.push_back(transmissionName);
-            getline(inputString, MPGcity, ',');
-            newCar.car_attributes.push_back(MPGcity);
-            getline(inputString, fuel, ',');
-            newCar.car_attributes.push_back(fuel);
-            getline(inputString, MPGhighway, ',');
-            newCar.car_attributes.push_back(MPGhighway);
-            getline(inputString, transmissionType, ',');
-            newCar.car_attributes.push_back(transmissionType);
-            getline(inputString, ID, ',');
-            newCar.car_attributes.push_back(ID);
-            getline(inputString, make, ',');
-            newCar.car_attributes.push_back(make);
-            getline(inputString, modelYear, ',');
-            newCar.car_attributes.push_back(modelYear);
-            getline(inputString, year, ',');
-            newCar.car_attributes.push_back(year);
-            getline(inputString, horsepower, ',');
-            newCar.car_attributes.push_back(horsepower);
-            getline(inputString, torque, ',');
-            newCar.car_attributes.push_back(torque);
-            getline(inputString, size, ',');
-            newCar.car_attributes.push_back(size);
-            getline(inputString, rpm, ',');
-            newCar.car_attributes.push_back(rpm);
-            newCar.car_attributes.push_back("0");
-            q.push(newCar);
-        }
         line = "";
     }
 
+    timeQ = clock() - timeQ;
+    timeH = clock() - timeH;
+    totalTimeQ = (float)timeQ/CLOCKS_PER_SEC;
+    totalTimeH = (float)timeH/CLOCKS_PER_SEC;
 
     //get user's input
     //use q.updatePriority(input, 0); after each question/input (update index by +1 for each input)
@@ -215,13 +197,20 @@ int main() {
     }
 
     //preference order: fuel type, city MPG, highway MPG, transmission type, horsepower, torque, drivetrain, size
+    timeQ = clock();
     for(int i = 0; i < idealCar.size(); i++)
     {
         q.updatePriority(idealCar[i].first, idealCar[i].second);
     }
+    timeQ = clock() - timeQ;
+    totalTimeQ += (float)timeQ/CLOCKS_PER_SEC;
 
+    timeQ = clock();
     Car priorityCar = q.top();
+    timeQ = clock() - timeQ;
+    totalTimeQ += (float)timeQ/CLOCKS_PER_SEC;
     //print stuff using priorityCar
+    cout << "----------------Priority Queue----------------" << endl;
     cout << "Car: " << priorityCar.car_attributes[10] << endl;
     cout << "Size: " << priorityCar.car_attributes[0] << endl;
     cout << "Volume: " << priorityCar.car_attributes[16] << endl;
@@ -229,11 +218,11 @@ int main() {
     cout << "Engine Type: " << priorityCar.car_attributes[2] << endl;
     if(priorityCar.car_attributes[3] == "TRUE")
     {
-        cout << "Has Hybrid Engine: " << "Yes" << endl;
+        cout << "Has Hybrid Engine: " << "No" << endl;
     }
     else
     {
-        cout << "Has Hybrid Engine: " << "No" << endl;
+        cout << "Has Hybrid Engine: " << "Yes" << endl;
     }
     cout << "Number of Forward Gears: " << priorityCar.car_attributes[4] << endl;
     cout << "Transmission: " << priorityCar.car_attributes[9] << endl;
@@ -243,7 +232,45 @@ int main() {
     cout << "HorsePower: " << priorityCar.car_attributes[14] << endl;
     cout << "Torque: " << priorityCar.car_attributes[15] << endl;
     cout << "RPM: " << priorityCar.car_attributes[17] << endl;
-    cout << "Time using Priority Queue: " /*<< need to implement Clock*/ << endl;
+    cout << "Time using Priority Queue: " << totalTimeQ << " seconds" <<endl << endl;
+
+    cout << "----------------Hash Table----------------" << endl;
+
+    timeH = clock();
+    for (int i = 0; i < q.priority_vect.size(); ++i) {
+        h.insert(q.priority_vect.at(i), q.priority_vect.at(i).priority);
+    }
+    timeH = clock() - timeH;
+    totalTimeH += (float)timeH/CLOCKS_PER_SEC;
+
+    timeH = clock();
+    Car hashCar = h.search(8);
+    timeH = clock() - timeH;
+    totalTimeH += (float)timeH/CLOCKS_PER_SEC;
+
+    cout << "Car: " << hashCar.car_attributes[10] << endl;
+    cout << "Size: " << hashCar.car_attributes[0] << endl;
+    cout << "Volume: " << hashCar.car_attributes[16] << endl;
+    cout << "Driveline: " << hashCar.car_attributes[1] << endl;
+    cout << "Engine Type: " << hashCar.car_attributes[2] << endl;
+    if(hashCar.car_attributes[3] == "TRUE")
+    {
+        cout << "Has Hybrid Engine: " << "No" << endl;
+    }
+    else
+    {
+        cout << "Has Hybrid Engine: " << "Yes" << endl;
+    }
+    cout << "Number of Forward Gears: " << hashCar.car_attributes[4] << endl;
+    cout << "Transmission: " << hashCar.car_attributes[9] << endl;
+    cout << "City mpg: " << hashCar.car_attributes[6] << endl;
+    cout << "Fuel Type: " << hashCar.car_attributes[7] << endl;
+    cout << "Highway mpg: " << hashCar.car_attributes[8] << endl;
+    cout << "HorsePower: " << hashCar.car_attributes[14] << endl;
+    cout << "Torque: " << hashCar.car_attributes[15] << endl;
+    cout << "RPM: " << hashCar.car_attributes[17] << endl;
+    cout << "Time using Hash Table: " << totalTimeH << " seconds" << endl;
+
 
     return 0;
 }
